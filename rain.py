@@ -4,9 +4,7 @@
 allow user to send a multi transaction to rain GRC on team members"""
 
 import getpass
-import subprocess
 from urllib2 import urlopen
-import sqlite3
 import gc
 import xml.etree.ElementTree as ET
 
@@ -19,3 +17,5 @@ root = ET.parse(urllib.urlopen(rosetta_url)).getroot()
 items = root.findall('users/user')
 for user in root: 
      print user.find('cpid').text 
+
+gc.collect()
