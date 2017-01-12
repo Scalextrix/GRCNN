@@ -15,7 +15,7 @@ grc_amount = raw_input("How much GRC to rain on each project CPID: ")
 
 rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1")
 
-users = ET.parse(urllib.urlopen(rosetta_url)).getroot()
+users = ET.parse(urlopen(rosetta_url)).getroot()
 
 items = users.findall('users/user')
 for user in users: 
