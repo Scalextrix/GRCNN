@@ -18,4 +18,4 @@ root = ET.parse(urllib.urlopen(rosetta_url)).getroot()
 
 items = root.findall('users/user')
 for user in root: 
-     user.find('cpid').text 
+     print user.find('cpid').text 
