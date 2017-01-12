@@ -24,7 +24,7 @@ for user in root:
      
 subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
 subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=False)
-subprocess.call(['gridcoinresearchd', 'sendmany', cpids, grc_amount, '', '', 'Its raining GRC'], shell=False)
+subprocess.call(['gridcoinresearchd', 'sendmany', addresses, grc_amount, '', '', 'Its raining GRC'], shell=False)
 subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
 subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=False)
 gc.collect()
