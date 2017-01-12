@@ -13,12 +13,9 @@ import xml.etree.ElementTree as ET
 gridcoin_passphrase = getpass.getpass(prompt="What is your Gridcoin Wallet Passphrase: ")
 
 rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1")
-project = urlopen(rosetta_url)
 
 root = ET.parse(urllib.urlopen(rosetta_url)).getroot()
-print root
-print '\n'
 
-items = root.findall('items/item')
-for item in items: 
-     item.find('cpid').text 
+items = root.findall('users/user')
+for user in root: 
+     user.find('cpid').text 
