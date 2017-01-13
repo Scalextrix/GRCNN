@@ -17,6 +17,21 @@ rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12
 
 root = ET.parse(urlopen(rosetta_url)).getroot()
 cpids = [el.text for el in root.findall('.//user/cpid')]
+cpids = zip(*[iter(cpids)]*1)
+
+conn = sqlite3.connect("GridcoinTeam.db")
+c = conn.cursor()
+c.execute('''CREATE TABLE IF NOT EXISTS GRIDCOINTEAM (cpid TEXT)''') 
+c.executemany("INSERT INTO GRIDCOINTEAM VALUES (?);", cpids)
+conn.commit()		
+conn.close()
+
+conn = sqlite3.connect("GridcoinTeam.db")
+c = conn.cursor()
+cpids = c.execute('select cpid from GRIDCOINTEAM').fetchall()
+conn.close()
+
+print cpids
      
      
 subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
