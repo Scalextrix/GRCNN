@@ -16,10 +16,7 @@ grc_amount = raw_input("How much GRC to rain on each project CPID: ")
 rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1")
 
 users = ET.parse(urlopen(rosetta_url)).getroot()
-
-items = users.findall('users/user')
-for user in users: 
-     print user.find('cpid').text 
+cpids = [el.text for el in root.findall('.//user/cpid')]
      
      
 subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
