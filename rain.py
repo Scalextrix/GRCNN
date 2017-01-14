@@ -41,22 +41,28 @@ def db_pull():
     rac = c.execute('select rac from GRIDCOINTEAM').fetchall()
     conn.close()
 
-def db_clean():
-    conn = sqlite3.connect("GridcoinTeam.db")
-    c = conn.cursor()
-    c.execute('''DROP TABLE IF EXISTS GRIDCOINTEAM''') 
-    conn.commit()		
-    conn.close()
+conn = sqlite3.connect("GridcoinTeam.db")
+c = conn.cursor()
+c.execute('''DROP TABLE IF EXISTS GRIDCOINTEAM''') 
+conn.commit()		
+conn.close()
 
 def execute_send():     
-     subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
-     subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=False)
-     subprocess.call(['gridcoinresearchd', 'sendmany', addresses, grc_amount, '', '', 'Its raining GRC'], shell=False)
-     subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
-     subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=False)
+    subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
+    subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=False)
+    subprocess.call(['gridcoinresearchd', 'sendmany', addresses, grc_amount, '', '', 'Its raining GRC'], shell=False)
+    subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
+    subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=False)
 
 xml_to_db()
-db_pull()
+
+conn = sqlite3.connect("GridcoinTeam.db")
+c = conn.cursor()
+c.execute('''DROP TABLE IF EXISTS GRIDCOINTEAM''') 
+conn.commit()		
+conn.close()
+print cpids
+
 execute_send()
 db_clean()
 gc.collect()
