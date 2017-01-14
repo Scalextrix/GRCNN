@@ -27,7 +27,6 @@ def xml_to_db():
     cpids = [el.text for el in root.findall('.//user/cpid')]
     rac = [el.text for el in root.findall('.//user/expavg_credit')]
     cpids = zip(*[iter(cpids), iter(rac)]*1)
-    print rac
 
     conn = sqlite3.connect("GridcoinTeam.db")
     c = conn.cursor()
