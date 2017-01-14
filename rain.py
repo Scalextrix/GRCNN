@@ -3,6 +3,11 @@
 """Gather list of Whitelisted projects from Gridcoin NN, call each project for team member CPIDs,
 allow user to send a multi transaction to rain GRC on team members"""
 
+__author__ = "Steven Campbell AKA Scalextrix"
+__copyright__ = "Copyright 2017, Steven Campbell"
+__license__ = "The Unlicense"
+__version__ = "0.1"
+
 import getpass
 from urllib2 import urlopen
 import gc
