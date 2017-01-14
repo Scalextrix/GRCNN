@@ -11,8 +11,7 @@ import subprocess
 import sys
 
 gridcoin_passphrase = getpass.getpass(prompt="What is your Gridcoin Wallet Passphrase: ")
-grc_amount = raw_input("How much GRC to rain on each project CPID: ")
-
+grc_amount = raw_input("How much GRC to rain on BOINC project: ")
 
 rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1")
 
@@ -35,6 +34,7 @@ def xml_to_db():
     conn.commit()		
     conn.close()
 
+def db_pull():
     conn = sqlite3.connect("GridcoinTeam.db")
     c = conn.cursor()
     cpids = c.execute('select cpid from GRIDCOINTEAM').fetchall()
@@ -56,6 +56,7 @@ def execute_send():
      subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=False)
 
 xml_to_db()
+db_pull()
 execute_send()
 db_clean()
 gc.collect()
