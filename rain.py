@@ -34,18 +34,12 @@ def xml_to_db():
     conn.commit()		
     conn.close()
 
-def db_pull():
+def db_clean():
     conn = sqlite3.connect("GridcoinTeam.db")
     c = conn.cursor()
-    cpids = c.execute('select cpid from GRIDCOINTEAM').fetchall()
-    rac = c.execute('select rac from GRIDCOINTEAM').fetchall()
+    c.execute('''DROP TABLE IF EXISTS GRIDCOINTEAM''') 
+    conn.commit()		
     conn.close()
-
-conn = sqlite3.connect("GridcoinTeam.db")
-c = conn.cursor()
-c.execute('''DROP TABLE IF EXISTS GRIDCOINTEAM''') 
-conn.commit()		
-conn.close()
 
 def execute_send():     
     subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
@@ -58,10 +52,11 @@ xml_to_db()
 
 conn = sqlite3.connect("GridcoinTeam.db")
 c = conn.cursor()
-c.execute('''DROP TABLE IF EXISTS GRIDCOINTEAM''') 
-conn.commit()		
+cpids = c.execute('select cpid from GRIDCOINTEAM').fetchall()
+rac = c.execute('select rac from GRIDCOINTEAM').fetchall()
 conn.close()
 print cpids
+print rac
 
 execute_send()
 db_clean()
