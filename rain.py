@@ -76,7 +76,7 @@ c = conn.cursor()
 conn.text_factory = str
 nn_mag = c.execute('select NeuralMagnitude from NNDATA where cpid in (select cpids from GRIDCOINTEAM)').fetchall() 
 conn.text_factory = float
-address = c.execute('select distinct Address from NNDATA where cpid in (select cpids from GRIDCOINTEAM)').fetchall()
+address = c.execute('select Address from NNDATA where cpid in (select cpids from GRIDCOINTEAM)').fetchall()
 conn.close()
 print "DB values exported"
 
