@@ -61,8 +61,6 @@ print "TEAM DB created"
 
 conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 c = conn.cursor()
-filename = c.execute('select filename from USERPREFS').fetchall()
-filename = [0][0]
 c.execute('''CREATE TABLE IF NOT EXISTS NNDATA (cpid TEXT, LocalMagnitude TEXT, NeuralMagnitude TEXT, TotalRAC TEXT, Synced Til TEXT, Address TEXT, CPID_Valid TEXT, Witnesses TEXT)''')
 filename.encode('utf-8')
 with open(filename, 'rb') as NN:
