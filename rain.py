@@ -13,6 +13,7 @@ import gc
 import getpass
 import itertools
 import os.path
+import sqlite
 import subprocess
 import sys
 from urllib2 import urlopen
