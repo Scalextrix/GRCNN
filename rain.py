@@ -41,6 +41,7 @@ else:
 	sys.exit("Sorry: BOINC Team not recognised")
 
 grc_amount = raw_input("How much GRC to rain on BOINC project: ")
+grc_amount = float(grc_amount)
 account_label = raw_input("Choose Wallet Account Label from which the GRC should be taken: ")
 message = raw_input("Enter if you wish to send a message to recipients: ")
 message = str('"'+message+'"')
