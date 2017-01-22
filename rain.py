@@ -73,9 +73,9 @@ print "CSV DB created"
             
 conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 c = conn.cursor()
-conn.text_factory = str
-nn_mag = c.execute('select NeuralMagnitude from NNDATA where cpid in (select cpids from GRIDCOINTEAM)').fetchall() 
 conn.text_factory = float
+nn_mag = c.execute('select NeuralMagnitude from NNDATA where cpid in (select cpids from GRIDCOINTEAM)').fetchall() 
+conn.text_factory = str
 address = c.execute('select Address from NNDATA where cpid in (select cpids from GRIDCOINTEAM)').fetchall()
 conn.close()
 print "DB values exported"
