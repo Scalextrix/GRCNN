@@ -19,12 +19,13 @@ import sys
 from urllib2 import urlopen
 import xml.etree.ElementTree as ET
 
-if os.path.isfile("Rain.db"):
+user_account = getpass.getuser()	
+filename = "C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\DailyNeuralMagnitudeReport.csv" % user_account
+
+if os.path.isfile("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account):
 	print "File path to DailyNeuralMagnitudeReport.csv found"	
 else:
-	user_account = raw_input("What is your PC User Account (case sensitive): ")
-	filename = "C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\DailyNeuralMagnitudeReport.csv" % user_account
-	conn = sqlite3.connect("Rain.db")
+	conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 	c = conn.cursor()
 	c.execute('''CREATE TABLE IF NOT EXISTS USERPREFS (filename TEXT)''') 
 	c.executemany("INSERT INTO GRIDCOINTEAM VALUES (?);", filename)
@@ -50,7 +51,7 @@ team_cpids = [el.text for el in root.findall('.//user/cpid')]
 team_cpids = zip(*[iter(team_cpids)]*1)
 print "BOINC project team XML Parsed"
 
-conn = sqlite3.connect("Rain.db")
+conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS GRIDCOINTEAM (cpids TEXT)''') 
 c.executemany("INSERT INTO GRIDCOINTEAM VALUES (?);", team_cpids)
@@ -58,7 +59,7 @@ conn.commit()
 conn.close()
 print "TEAM DB created"
 
-conn = sqlite3.connect("Rain.db")
+conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 c = conn.cursor()
 filename = c.execute('select filename from USERPREFS').fetchall()
 filename = [0][0]
@@ -72,7 +73,7 @@ conn.commit()
 conn.close()
 print "CSV DB created"
             
-conn = sqlite3.connect("Rain.db")
+conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 c = conn.cursor()
 conn.text_factory = str
 nn_mag = c.execute('select NeuralMagnitude from NNDATA where cpid in (select cpids from GRIDCOINTEAM)').fetchall() 
@@ -102,7 +103,7 @@ subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, me
 subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
 subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=False)
 
-conn = sqlite3.connect("Rain.db")
+conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 c = conn.cursor()
 c.execute('''DROP TABLE IF EXISTS GRIDCOINTEAM''')
 c.execute('''DROP TABLE IF EXISTS NNDATA''')
