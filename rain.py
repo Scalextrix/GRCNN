@@ -20,25 +20,26 @@ import os.path
 if os.path.isfile("Rain.db"):
 	print "File path to DailyNeuralMagnitudeReport.csv found"	
 else:
-    user_account = raw_input("What is your PC User Account (case sensitive): ")
-    filename = "C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\DailyNeuralMagnitudeReport.csv" % user_account
-    conn = sqlite3.connect("Rain.db")
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS USERPREFS (filename TEXT)''') 
-    c.executemany("INSERT INTO GRIDCOINTEAM VALUES (?);", filename)
-    conn.commit()		
-    conn.close()
+	user_account = raw_input("What is your PC User Account (case sensitive): ")
+	filename = "C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\DailyNeuralMagnitudeReport.csv" % user_account
+	conn = sqlite3.connect("Rain.db")
+	c = conn.cursor()
+	c.execute('''CREATE TABLE IF NOT EXISTS USERPREFS (filename TEXT)''') 
+	c.executemany("INSERT INTO GRIDCOINTEAM VALUES (?);", filename)
+	conn.commit()		
+	conn.close()
 
 rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1")
 
 rain_team = raw_input("Which BOINC project to RAIN on: ").lower()
 if rain_team == "rosetta" or rain_team == "rosetta@home":
-    project_url = rosetta_url
+	project_url = rosetta_url
 else:
-    sys.exit("Sorry: BOINC Team not recognised")
+	sys.exit("Sorry: BOINC Team not recognised")
     
 grc_amount = raw_input("How much GRC to rain on BOINC project: ")
 message = raw_input("Enter if you wish to send a message to recipients: ")
+message = str('"'+message+'"')
 gridcoin_passphrase = getpass.getpass(prompt="What is your Gridcoin Wallet Passphrase: ")
         
 root = ET.parse(urlopen(project_url)).getroot()
@@ -88,6 +89,7 @@ colon = ":" * counter1
 comma = "," * counter1
 call_insert = [val for pair in zip(address, colon, call_amount, comma) for val in pair]
 call_insert = ''.join(call_insert)
+call_insert = str("'{"+call_insert+"}'")
 
 print("Gridcoin TXID:")   
 subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
