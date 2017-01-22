@@ -8,14 +8,15 @@ __copyright__ = "Copyright 2017, Steven Campbell"
 __license__ = "The Unlicense"
 __version__ = "0.1"
 
-import getpass
-from urllib2 import urlopen
+import csv
 import gc
-import xml.etree.ElementTree as ET
+import getpass
+import itertools
+import os.path
 import subprocess
 import sys
-import csv
-import os.path
+from urllib2 import urlopen
+import xml.etree.ElementTree as ET
 
 if os.path.isfile("Rain.db"):
 	print "File path to DailyNeuralMagnitudeReport.csv found"	
@@ -36,8 +37,9 @@ if rain_team == "rosetta" or rain_team == "rosetta@home":
 	project_url = rosetta_url
 else:
 	sys.exit("Sorry: BOINC Team not recognised")
-    
+
 grc_amount = raw_input("How much GRC to rain on BOINC project: ")
+account_label = raw_input("Choose Wallet Account Label from which the GRC should be taken: ")
 message = raw_input("Enter if you wish to send a message to recipients: ")
 message = str('"'+message+'"')
 gridcoin_passphrase = getpass.getpass(prompt="What is your Gridcoin Wallet Passphrase: ")
@@ -85,16 +87,17 @@ nn_mag = filter(lambda x: x is not None,nn_mag)
 call_amount = [x * (grc_amount / (sum(nn_mag))) for x in nn_mag]
 call_amount = [str(i) for i in call_amount]
 counter1 = len(nn_mag)
+quotes = '"' * counter1
 colon = ":" * counter1
 comma = "," * counter1
-call_insert = [val for pair in zip(address, colon, call_amount, comma) for val in pair]
+call_insert = [val for pair in zip(quotes, address, quotes, colon, call_amount, comma) for val in pair]
 call_insert = ''.join(call_insert)
 call_insert = str("'{"+call_insert+"}'")
 
 print("Gridcoin TXID:")   
 subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
 subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=False)
-subprocess.call(['gridcoinresearchd', 'sendmany', '', call_insert, '', '', message], shell=False)
+subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, message], shell=False)
 subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
 subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=False)
 
