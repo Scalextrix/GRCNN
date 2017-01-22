@@ -24,7 +24,7 @@ else:
     filename = "C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\DailyNeuralMagnitudeReport.csv" % user_account
     conn = sqlite3.connect("Rain.db")
     c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS USERPREFS (cpids TEXT)''') 
+    c.execute('''CREATE TABLE IF NOT EXISTS USERPREFS (filename TEXT)''') 
     c.executemany("INSERT INTO GRIDCOINTEAM VALUES (?);", filename)
     conn.commit()		
     conn.close()
