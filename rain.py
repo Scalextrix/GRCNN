@@ -63,9 +63,9 @@ print "CSV DB created"
 conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 c = conn.cursor()
 conn.text_factory = float
-nn_mag = c.execute('select NeuralMagnitude from NNDATA where cpid in (select cpids from GRIDCOINTEAM)').fetchall() 
+nn_mag = c.execute('select NeuralMagnitude from NNDATA where NeuralMagnitude != 0 and CPID in (select cpids from GRIDCOINTEAM)').fetchall() 
 conn.text_factory = str
-address = c.execute('select Address from NNDATA where cpid in (select cpids from GRIDCOINTEAM)').fetchall()
+address = c.execute('select Address from NNDATA where NeuralMagnitude != 0 and CPID in (select cpids from GRIDCOINTEAM)').fetchall()
 conn.close()
 print "DB values exported"
 
@@ -93,7 +93,7 @@ call_insert = str("'{"+call_insert+"}'")
 print("Gridcoin TXID:")   
 subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
 subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=False)
-subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, message], shell=False)
+subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, '2', message], shell=False)
 subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
 subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=False)
             
