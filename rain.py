@@ -22,16 +22,6 @@ import xml.etree.ElementTree as ET
 user_account = getpass.getuser()	
 filename = "C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\DailyNeuralMagnitudeReport.csv" % user_account
 
-if os.path.isfile("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account):
-	print "File path to DailyNeuralMagnitudeReport.csv found"	
-else:
-	conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
-	c = conn.cursor()
-	c.execute('''CREATE TABLE IF NOT EXISTS USERPREFS (filename TEXT)''') 
-	c.executemany("INSERT INTO GRIDCOINTEAM VALUES (?);", filename)
-	conn.commit()		
-	conn.close()
-
 rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1")
 
 rain_team = raw_input("Which BOINC project to RAIN on: ").lower()
