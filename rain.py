@@ -81,6 +81,13 @@ address = c.execute('select Address from NNDATA where cpid in (select cpids from
 conn.close()
 print "DB values exported"
 
+conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
+c = conn.cursor()
+c.execute('''DROP TABLE IF EXISTS GRIDCOINTEAM''')
+c.execute('''DROP TABLE IF EXISTS NNDATA''')
+conn.commit()		
+conn.close()
+
 address = list(itertools.chain(*address))
 nn_mag = list(itertools.chain(*nn_mag))
 address = filter(lambda x: x is not None,address)
@@ -101,12 +108,5 @@ subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '
 subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, message], shell=False)
 subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
 subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=False)
-
-conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
-c = conn.cursor()
-c.execute('''DROP TABLE IF EXISTS GRIDCOINTEAM''')
-c.execute('''DROP TABLE IF EXISTS NNDATA''')
-conn.commit()		
-conn.close()
             
 gc.collect()
