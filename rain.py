@@ -32,8 +32,7 @@ else:
 
 grc_amount = float(raw_input("How much GRC to rain on BOINC project: "))
 account_label = raw_input("Choose Wallet Account Label from which the GRC should be taken: ")
-message = raw_input("Enter if you wish to send a message to recipients: ")
-message = str('"'+message+'"')
+message = str('"'+(raw_input("Enter if you wish to send a message to recipients: "))+'"')
 gridcoin_passphrase = getpass.getpass(prompt="What is your Gridcoin Wallet Passphrase: ")
         
 root = ET.parse(urlopen(project_url)).getroot()
