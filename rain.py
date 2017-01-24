@@ -73,7 +73,7 @@ elif rain_team == "ddm" or rain_team == "distributed data mining":
 	    project_url = ddm_url
 elif rain_team == "einstein" or rain_team == "einstein@home":
 	    project_url = einstein_url
-elif rain_team == "enigma" or rain_team == "enigma@home"
+elif rain_team == "enigma" or rain_team == "enigma@home":
 	    project_url = enigma_url
 elif rain_team == "find" or rain_team == "find@home":
 	    project_url = find_url
