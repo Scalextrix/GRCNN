@@ -192,7 +192,7 @@ comma = ',' * len(nn_mag)
 call_insert = [val for pair in zip(quotes, address, quotes, colon, call_amount, comma) for val in pair]
 call_insert = str('{'+(''.join(call_insert))+'}')
 call_insert = call_insert[:-2] + call_insert[-1:]
-print "The following addresses will receive funds:"
+print ("The following addresses will receive funds:")
 print call_insert
 
 print("Gridcoin TXID:")   
