@@ -22,19 +22,24 @@ import xml.etree.ElementTree as ET
 user_account = getpass.getuser()	
 filename = "C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\DailyNeuralMagnitudeReport.csv" % user_account
 
+asteroids_url = ("http://asteroidsathome.net/boinc/team_email_list.php?teamid=2218&xml=1")
 atlas_url = ("http://atlasathome.cern.ch/team_email_list.php?teamid=1869&account_key=Y&xml=1")
 ddm_url = ("http://www.distributeddatamining.org/DistributedDataMining/team_email_list.php?teamid=2176&xml=1")
 gpugrid_url = ("https://www.gpugrid.net/team_email_list.php?teamid=3493&xml=1")
 gridcoin_finance_url = ("finance.gridcoin.us/finance/team_email_list.php?teamid=5&xml=1")
 einstein_url = ("https://einsteinathome.org/team_email_list.php?teamid=13630&account_key=Y&xml=1")
 lhc_url = ("http://lhcathomeclassic.cern.ch/sixtrack/team_email_list.php?teamid=8128&xml=1")
+milkyway_url = ("http://milkyway.cs.rpi.edu/milkyway/team_email_list.php?teamid=6566&xml=1")
+poem_url = ("http://boinc.fzk.de/poem/team_email_list.php?teamid=3147&xml=1")
 rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1")
 wcg_url = ("https://www.worldcommunitygrid.org/boinc/team_email_list.php?teamid=30513&xml=1")
 yafu_url = ("http://yafu.myfirewall.org/yafu/team_email_list.php?teamid=260&account_key=Y&xml=1")
 
 
 rain_team = raw_input("Which BOINC project to RAIN on: ").lower()
-if rain_team == "atlas" or rain_team == "atlas@home":
+if rain_team == "asteroids" or rain_team == "asteroids@home":
+	project_url = asteroids_url
+elif rain_team == "atlas" or rain_team == "atlas@home":
 	project_url = atlas_url
 elif rain_team == "ddm" or rain_team == "distributed data mining":
 	project_url = ddm_url
@@ -46,6 +51,10 @@ elif rain_team == "einstein" or rain_team == "einstein@home":
 	project_url = einstein_url
 elif rain_team == "lhc" or rain_team == "lhc@home":
 	project_url = lhc_url
+elif rain_team == "milkyway" or rain_team == "milky way" or rain_team == "milkyway@home":
+	project_url = milkyway_url
+elif rain_team == "poem" or rain_team == "poem@home":
+	project_url = poem_url
 elif rain_team == "rosetta" or rain_team == "rosetta@home":
 	project_url = rosetta_url
 elif rain_team == "wcg" or rain_team == "world community grid":
