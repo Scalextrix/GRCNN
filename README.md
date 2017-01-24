@@ -37,10 +37,15 @@ From the command prompt:
   > rain.py
   
 You will need to:
+
 Enter the name of the project on which you wish to rain funds
+
 Enter the total amount of GRC you wish to send to the rainees
+
 Choose the Gridcoin Wallet Account Label from which the GRC should be taken (in GUI wallet see Receive Coins)
+
 Enter an optional message to send in the transaction
+
 Enter your Gridcoin Wallet Passphrase *** Note; the passphrase is not stored and the entry will be invisible, the wallet will be locked, unlocked, the transaction sent, re-locked and then unlocked for staking only ***
 
 Once all the data is loaded and the transaction completed, you will receive a TXID which can be queried on the block explorer.
