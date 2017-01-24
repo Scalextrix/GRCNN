@@ -24,6 +24,8 @@ filename = "C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\DailyNeu
 
 asteroids_url = ("http://asteroidsathome.net/boinc/team_email_list.php?teamid=2218&xml=1")
 atlas_url = ("http://atlasathome.cern.ch/team_email_list.php?teamid=1869&account_key=Y&xml=1")
+collatz_url = ("http://boinc.thesonntags.com/collatz/team_email_list.php?teamid=3029&xml=1")
+csgrid_url = ("http://csgrid.org/csg/team_email_list.php?teamid=154&xml=1")
 ddm_url = ("http://www.distributeddatamining.org/DistributedDataMining/team_email_list.php?teamid=2176&xml=1")
 gpugrid_url = ("https://www.gpugrid.net/team_email_list.php?teamid=3493&xml=1")
 gridcoin_finance_url = ("finance.gridcoin.us/finance/team_email_list.php?teamid=5&xml=1")
@@ -31,7 +33,9 @@ einstein_url = ("https://einsteinathome.org/team_email_list.php?teamid=13630&acc
 lhc_url = ("http://lhcathomeclassic.cern.ch/sixtrack/team_email_list.php?teamid=8128&xml=1")
 milkyway_url = ("http://milkyway.cs.rpi.edu/milkyway/team_email_list.php?teamid=6566&xml=1")
 poem_url = ("http://boinc.fzk.de/poem/team_email_list.php?teamid=3147&xml=1")
+primegrid_url = ("https://www.primegrid.com/team_email_list.php?teamid=4469&xml=1")
 rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1")
+seti_url = ("https://setiathome.berkeley.edu/team_email_list.php?teamid=145340&xml=1")
 wcg_url = ("https://www.worldcommunitygrid.org/boinc/team_email_list.php?teamid=30513&xml=1")
 yafu_url = ("http://yafu.myfirewall.org/yafu/team_email_list.php?teamid=260&account_key=Y&xml=1")
 
@@ -41,6 +45,10 @@ if rain_team == "asteroids" or rain_team == "asteroids@home":
 	project_url = asteroids_url
 elif rain_team == "atlas" or rain_team == "atlas@home":
 	project_url = atlas_url
+elif rain_team == "collatz" or rain_team == "collatz conjecture":
+	project_url = collatz_url
+elif rain_team == "csg" or rain_team == "csgrid" or rain_team == "citizen science grid":
+	project_url = csgrid_url
 elif rain_team == "ddm" or rain_team == "distributed data mining":
 	project_url = ddm_url
 elif rain_team == "gpugrid" or rain_team == "gpugrid.net":
@@ -55,8 +63,12 @@ elif rain_team == "milkyway" or rain_team == "milky way" or rain_team == "milkyw
 	project_url = milkyway_url
 elif rain_team == "poem" or rain_team == "poem@home":
 	project_url = poem_url
+elif rain_team == "primegrid" or rain_team == "primegrid@home":
+	project_url = primegrid_url
 elif rain_team == "rosetta" or rain_team == "rosetta@home":
 	project_url = rosetta_url
+elif rain_team == "seti" or rain_team == "seti@home":
+	project_url = seti_url
 elif rain_team == "wcg" or rain_team == "world community grid":
 	project_url = wcg_url
 elif rain_team == "yafu" or rain_team == "yafu@home":
