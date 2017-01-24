@@ -25,7 +25,13 @@ filename = "C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\DailyNeu
 rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1")
 
 rain_team = raw_input("Which BOINC project to RAIN on: ").lower()
-if rain_team == "rosetta" or rain_team == "rosetta@home":
+if rain_team == "atlas" or rain_team == "atlas@home":
+	project_url = atlas_url
+elif rain_team == "einstein" or rain_team == "einstein@home":
+	project_url = atlas_url
+elif rain_team == "rosetta" or rain_team == "rosetta@home":
+	project_url = rosetta_url
+elif rain_team == "yafu" or rain_team == "yafu@home":
 	project_url = rosetta_url
 else:
 	sys.exit("Sorry: BOINC Team not recognised")
@@ -53,9 +59,9 @@ c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS NNDATA (cpid TEXT, LocalMagnitude TEXT, NeuralMagnitude TEXT, TotalRAC TEXT, Synced Til TEXT, Address TEXT, CPID_Valid TEXT, Witnesses TEXT)''')
 filename.encode('utf-8')
 with open(filename, 'rb') as NN:
-    reader = csv.DictReader(NN)
-    field = [(i['CPID'], i['LocalMagnitude'], i['NeuralMagnitude'], i['TotalRAC'], i['Synced Til'], i['Address'], i['CPID_Valid'], i['Witnesses']) for i in reader]
-    c.executemany("INSERT INTO NNDATA VALUES (?,?,?,?,?,?,?,?);", field)
+	reader = csv.DictReader(NN)
+	field = [(i['CPID'], i['LocalMagnitude'], i['NeuralMagnitude'], i['TotalRAC'], i['Synced Til'], i['Address'], i['CPID_Valid'], i['Witnesses']) for i in reader]
+	c.executemany("INSERT INTO NNDATA VALUES (?,?,?,?,?,?,?,?);", field)
 conn.commit()		
 conn.close()
 print "CSV DB created"
@@ -63,9 +69,9 @@ print "CSV DB created"
 conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 c = conn.cursor()
 conn.text_factory = float
-nn_mag = c.execute('select NeuralMagnitude from NNDATA where NeuralMagnitude != 0 and CPID in (select cpids from GRIDCOINTEAM)').fetchall() 
+nn_mag = c.execute('select NeuralMagnitude from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM)').fetchall() 
 conn.text_factory = str
-address = c.execute('select Address from NNDATA where NeuralMagnitude != 0 and CPID in (select cpids from GRIDCOINTEAM)').fetchall()
+address = c.execute('select Address from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM)').fetchall()
 conn.close()
 print "DB values exported"
 
@@ -78,23 +84,20 @@ conn.close()
 
 address = list(itertools.chain(*address))
 nn_mag = list(itertools.chain(*nn_mag))
-address = filter(lambda x: x is not None,address)
-nn_mag = filter(lambda x: x is not None,nn_mag)
 call_amount = [x * (grc_amount / (sum(nn_mag))) for x in nn_mag]
 call_amount = [str("{:.8f}".format(i)) for i in call_amount]
-counter1 = len(nn_mag)
-quotes = '"' * counter1
-colon = ":" * counter1
-comma = "," * counter1
+quotes = '"' * len(nn_mag)
+colon = ":" * len(nn_mag)
+comma = "," * len(nn_mag)
 call_insert = [val for pair in zip(quotes, address, quotes, colon, call_amount, comma) for val in pair]
-call_insert = ''.join(call_insert)
-call_insert = str("'{"+call_insert+"}'")
+call_insert = str('{'+(''.join(call_insert))+'}')
+call_insert = call_insert[:-2] + call_insert[-1:]
 
 print("Gridcoin TXID:")   
-subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
-subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=False)
-subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, '2', message], shell=False)
-subprocess.call(['gridcoinresearchd', 'walletlock'], shell=False)
-subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=False)
+subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
+subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=True)
+subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, "2", message], shell=True)
+subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
+subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=True)
             
 gc.collect()
