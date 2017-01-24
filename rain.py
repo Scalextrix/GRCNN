@@ -51,6 +51,7 @@ seti_url = ("https://setiathome.berkeley.edu/team_email_list.php?teamid=145340&x
 stzaki_url = ("http://szdg.lpds.sztaki.hu/szdg/team_email_list.php?teamid=3502&xml=1")
 vlhc_url = ("http://lhcathome2.cern.ch/vLHCathome/team_email_list.php?teamid=2429&xml=1")
 wcg_url = ("https://www.worldcommunitygrid.org/boinc/team_email_list.php?teamid=30513&xml=1")
+wuprop_url = ("http://wuprop.boinc-af.org/team_email_list.php?teamid=2243&xml=1")
 yafu_url = ("http://yafu.myfirewall.org/yafu/team_email_list.php?teamid=260&account_key=Y&xml=1")
 yoyo_url = ("http://www.rechenkraft.net/yoyo/team_email_list.php?teamid=1475&xml=1")
 
@@ -114,6 +115,8 @@ elif rain_team == "vlhc" or rain_team == "lhc@home2" or rain_team == "vlhc@home"
 	    project_url = vlhc_url
 elif rain_team == "wcg" or rain_team == "world community grid":
 	    project_url = wcg_url
+elif rain_team == "wuprop" or rain_team == "wuprop@home":
+	    project_url = wuprop_url
 elif rain_team == "yafu" or rain_team == "yafu@home":
 	    project_url = yafu_url
 elif rain_team == "yoyo" or rain_team == "yoyo@home":
