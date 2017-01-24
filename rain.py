@@ -39,13 +39,20 @@ lhc_url = ("http://lhcathomeclassic.cern.ch/sixtrack/team_email_list.php?teamid=
 malaria_url = ("http://www.malariacontrol.net/team_email_list.php?teamid=4059&xml=1")
 milkyway_url = ("http://milkyway.cs.rpi.edu/milkyway/team_email_list.php?teamid=6566&xml=1")
 mindmodel_url = ("https://mindmodeling.org/team_email_list.php?teamid=2415&account_key=Y&xml=1")
+moo_url = ("http://moowrap.net/team_email_list.php?teamid=2190&xml=1")
+nfs_url = ("https://mindmodeling.org/login_form.php?next_url=%2Fteam_email_list.php%3Fteamid%3D2415%26xm")
+numberfields_url = ("https://numberfields.asu.edu/NumberFields/team_email_list.php?teamid=2069&xml=1")
 poem_url = ("http://boinc.fzk.de/poem/team_email_list.php?teamid=3147&xml=1")
+pogs_url = ("http://pogs.theskynet.org/pogs/team_email_list.php?teamid=2020&xml=1")
 primegrid_url = ("https://www.primegrid.com/team_email_list.php?teamid=4469&xml=1")
 rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1")
+sat_url = ("http://sat.isa.ru/pdsat/team_email_list.php?teamid=2059&xml=1")
 seti_url = ("https://setiathome.berkeley.edu/team_email_list.php?teamid=145340&xml=1")
+stzaki_url = ("http://szdg.lpds.sztaki.hu/szdg/team_email_list.php?teamid=3502&xml=1")
 vlhc_url = ("http://lhcathome2.cern.ch/vLHCathome/team_email_list.php?teamid=2429&xml=1")
 wcg_url = ("https://www.worldcommunitygrid.org/boinc/team_email_list.php?teamid=30513&xml=1")
 yafu_url = ("http://yafu.myfirewall.org/yafu/team_email_list.php?teamid=260&account_key=Y&xml=1")
+yoyo_url = ("http://www.rechenkraft.net/yoyo/team_email_list.php?teamid=1475&xml=1")
 
 
 rain_team = raw_input("Which BOINC project to RAIN on: ").lower()
@@ -83,20 +90,34 @@ elif rain_team == "milkyway" or rain_team == "milky way" or rain_team == "milkyw
 	    project_url = milkyway_url
 elif rain_team == "mindmodeling" or rain_team == "mind modeling" or rain_team == "mindmodeling@home":
 	    project_url = mindmodel_url
+elif rain_team == "moo" or rain_team == "moowrap":
+	    project_url = moo_url
+elif rain_team == "nfs" or rain_team == "nfs@home":
+	    project_url = nfs_url
+elif rain_team == "numberfields" or rain_team == "number fields" or rain_team == "numberfields@home":
+	    project_url = numberfields_url
 elif rain_team == "poem" or rain_team == "poem@home":
 	    project_url = poem_url
+elif rain_team == "pogs" or rain_team == "skynet" or rain_team == "theskynet pogs"
+	    project_url = pogs_url
 elif rain_team == "primegrid" or rain_team == "primegrid@home":
 	    project_url = primegrid_url
 elif rain_team == "rosetta" or rain_team == "rosetta@home":
 	    project_url = rosetta_url
+elif rain_team == "sat" or rain_team == "sat@home":
+	    project_url = sat_url
 elif rain_team == "seti" or rain_team == "seti@home":
 	    project_url = seti_url
+elif rain_team == "stzaki":
+	    project_url = stzaki_url
 elif rain_team == "vlhc" or rain_team == "lhc@home2" or rain_team == "vlhc@home":
 	    project_url = vlhc_url
 elif rain_team == "wcg" or rain_team == "world community grid":
 	    project_url = wcg_url
 elif rain_team == "yafu" or rain_team == "yafu@home":
 	    project_url = yafu_url
+elif rain_team == "yoyo" or rain_team == "yoyo@home":
+	    project_url = yoyo_url
 else:
 	    sys.exit("Sorry: BOINC Team not recognised")
 
