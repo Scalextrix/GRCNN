@@ -50,4 +50,4 @@ Enter your Gridcoin Wallet Passphrase *** Note; the passphrase is not stored in 
 
 Once all the data is loaded and the transaction completed, you will receive a TXID which can be queried on the block explorer.
 
-A database file 'Rain.db' will be added to the 'C:\Users\Upstairs\AppData\Roaming\GridcoinResearch\reports' folder, in case of problems it is safe to delete this file.
+A database file 'Rain.db' will be added to the 'C:\Users\User\AppData\Roaming\GridcoinResearch\reports' folder, in case of problems it is safe to delete this file.
