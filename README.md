@@ -40,6 +40,8 @@ You will need to:
 
 Enter the name of the project on which you wish to rain funds
 
+If you prefer to distribute based on Project RAC or use Gridcoin Magnitude
+
 Enter the total amount of GRC you wish to send to the rainees
 
 Choose the Gridcoin Wallet Account Label from which the GRC should be taken (in GUI wallet see Receive Coins)
