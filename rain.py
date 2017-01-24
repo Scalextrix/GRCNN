@@ -28,11 +28,11 @@ rain_team = raw_input("Which BOINC project to RAIN on: ").lower()
 if rain_team == "atlas" or rain_team == "atlas@home":
 	project_url = atlas_url
 elif rain_team == "einstein" or rain_team == "einstein@home":
-	project_url = atlas_url
+	project_url = einstein_url
 elif rain_team == "rosetta" or rain_team == "rosetta@home":
 	project_url = rosetta_url
 elif rain_team == "yafu" or rain_team == "yafu@home":
-	project_url = rosetta_url
+	project_url = yafu_url
 else:
 	sys.exit("Sorry: BOINC Team not recognised")
 
