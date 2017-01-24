@@ -22,7 +22,8 @@ Open the command prompt:
   
   > gridcoinresearch -server
 
-Once the GridcoinResearch wallet is fully loaded
+Once the GridcoinResearch wallet is fully loaded:
+
 Option A, from the command prompt type:
 
   > gridcoinresearchd execute syncdpor2
