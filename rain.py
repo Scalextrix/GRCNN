@@ -36,11 +36,14 @@ gpugrid_url = ("https://www.gpugrid.net/team_email_list.php?teamid=3493&xml=1")
 gridcoin_finance_url = ("finance.gridcoin.us/finance/team_email_list.php?teamid=5&xml=1")
 leiden_url = ("http://boinc.gorlaeus.net/team_email_list.php?teamid=1629&xml=1")
 lhc_url = ("http://lhcathomeclassic.cern.ch/sixtrack/team_email_list.php?teamid=8128&xml=1")
+malaria_url = ("http://www.malariacontrol.net/team_email_list.php?teamid=4059&xml=1")
 milkyway_url = ("http://milkyway.cs.rpi.edu/milkyway/team_email_list.php?teamid=6566&xml=1")
+mindmodel_url = ("https://mindmodeling.org/team_email_list.php?teamid=2415&account_key=Y&xml=1")
 poem_url = ("http://boinc.fzk.de/poem/team_email_list.php?teamid=3147&xml=1")
 primegrid_url = ("https://www.primegrid.com/team_email_list.php?teamid=4469&xml=1")
 rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1")
 seti_url = ("https://setiathome.berkeley.edu/team_email_list.php?teamid=145340&xml=1")
+vlhc_url = ("http://lhcathome2.cern.ch/vLHCathome/team_email_list.php?teamid=2429&xml=1")
 wcg_url = ("https://www.worldcommunitygrid.org/boinc/team_email_list.php?teamid=30513&xml=1")
 yafu_url = ("http://yafu.myfirewall.org/yafu/team_email_list.php?teamid=260&account_key=Y&xml=1")
 
@@ -74,8 +77,12 @@ elif rain_team == "leiden" or rain_team == "leiden@home":
 	    project_url = leiden_url
 elif rain_team == "lhc" or rain_team == "lhc@home":
 	    project_url = lhc_url
+elif rain_team == "malariacontrol" or rain_team == "malaria control":
+	    project_url = malaria_url
 elif rain_team == "milkyway" or rain_team == "milky way" or rain_team == "milkyway@home":
 	    project_url = milkyway_url
+elif rain_team == "mindmodeling" or rain_team == "mind modeling" or rain_team == "mindmodeling@home":
+	    project_url = mindmodel_url
 elif rain_team == "poem" or rain_team == "poem@home":
 	    project_url = poem_url
 elif rain_team == "primegrid" or rain_team == "primegrid@home":
@@ -84,6 +91,8 @@ elif rain_team == "rosetta" or rain_team == "rosetta@home":
 	    project_url = rosetta_url
 elif rain_team == "seti" or rain_team == "seti@home":
 	    project_url = seti_url
+elif rain_team == "vlhc" or rain_team == "lhc@home2" or rain_team == "vlhc@home":
+	    project_url = vlhc_url
 elif rain_team == "wcg" or rain_team == "world community grid":
 	    project_url = wcg_url
 elif rain_team == "yafu" or rain_team == "yafu@home":
