@@ -19,6 +19,7 @@ This Python script is for Windows only, Linux Gridcoin wallets have no Neural Ne
 Open the command prompt:
 
   > cd C:\Program Files (x86)\GridcoinResearch
+  
   > gridcoinresearch -server
 
 Once the GridcoinResearch wallet is fully loaded
