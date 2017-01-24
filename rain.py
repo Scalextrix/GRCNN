@@ -99,7 +99,7 @@ elif rain_team == "numberfields" or rain_team == "number fields" or rain_team ==
 	    project_url = numberfields_url
 elif rain_team == "poem" or rain_team == "poem@home":
 	    project_url = poem_url
-elif rain_team == "pogs" or rain_team == "skynet" or rain_team == "theskynet pogs"
+elif rain_team == "pogs" or rain_team == "skynet" or rain_team == "theskynet pogs":
 	    project_url = pogs_url
 elif rain_team == "primegrid" or rain_team == "primegrid@home":
 	    project_url = primegrid_url
