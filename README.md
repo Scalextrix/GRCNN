@@ -1,4 +1,4 @@
-# GRCNN
+# GRC_RAIN
 
 The purpose of this repository is to create a method for users of the Gridcoin crypto-currency (www.gridcoin.us)
 to re-distribute the GRC currency to other members who are active on specific BOINC projects, this methodology is
