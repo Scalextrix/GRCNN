@@ -10,7 +10,17 @@ in preparation for BOINC contests, such as the BOINC Pentathlon (https://www.set
 
 *** PREREQUISITES
 
-This Python script is for Windows only, Linux Gridcoin wallets have no Neural Network.  To operate this Python script you need to install Python 2.7, the Gridcoin Qt wallet must be started with the -server argument to allow GridcoinResearch to accept RPC commands, the gridcoinresearch.conf file must contain 'exportmagnitude=true', 'rpcuser=' and 'rpcpassword=' must be set with a username and password, the NeuralNetwork must also be synchronized.  This Python script must be copied to 'C:\Program Files (x86)\GridcoinResearch' for it to work.
+This Python script is for Windows only, Linux Gridcoin wallets have no Neural Network.
+
+To operate this Python script you need to install Python 2.7.
+
+The gridcoinresearch.conf file must contain 'exportmagnitude=true', 'rpcuser=' and 'rpcpassword=' must be set with a username and password. 
+
+The Gridcoin Qt wallet must be started with the -server argument to allow GridcoinResearch to accept RPC commands.
+
+The NeuralNetwork must be synchronized.
+
+This Python script must be copied to 'C:\Program Files (x86)\GridcoinResearch' for it to work, or, gridcoinresearchd must be set in %PATH%.
 
 *** INSTRUCTIONS
 
