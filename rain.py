@@ -199,9 +199,7 @@ if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
             		call_insert = [val for pair in zip(quotes, address_list, quotes, colon, call_amount, comma) for val in pair]
             		call_insert = str('{'+(''.join(call_insert))+'}')
             		call_insert = call_insert[:-2] + call_insert[-1:]
-            		print ("The following Gridcoin addresses will receive funds:")
-            		print call_insert
-            		print("Gridcoin TXID:")   
+            		print("Gridcoin TXIDs:")   
             		subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
             		subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=True)
             		subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, "2", message], shell=True)
@@ -231,9 +229,7 @@ elif mag_or_rac_rain == "rac":
             		call_insert = [val for pair in zip(quotes, address_list, quotes, colon, call_amount, comma) for val in pair]
             		call_insert = str('{'+(''.join(call_insert))+'}')
             		call_insert = call_insert[:-2] + call_insert[-1:]
-            		print ("The following Gridcoin addresses will receive funds:")
-            		print call_insert
-            		print("Gridcoin TXID:")   
+            		print("Gridcoin TXIDs:")   
             		subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
             		subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=True)
             		subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, "2", message], shell=True)
