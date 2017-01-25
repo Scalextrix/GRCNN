@@ -50,6 +50,6 @@ Enter an optional message to send in the transaction
 
 Enter your Gridcoin Wallet Passphrase *** Note; the passphrase is not stored in the database or Python script and the entry will be invisible, the wallet will be locked, unlocked, the transaction sent, re-locked and then unlocked for staking only ***
 
-Once all the data is loaded and the transaction completed, you will receive a TXID which can be queried on the block explorer.
+Once all the data is loaded and the transaction completed, you will receive a set of TXIDs which can be queried on the block explorer.
 
 A database file 'Rain.db' will be added to the 'C:\Users\User\AppData\Roaming\GridcoinResearch\reports' folder, in case of problems it is safe to delete this file.
