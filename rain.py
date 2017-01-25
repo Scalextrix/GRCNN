@@ -186,7 +186,7 @@ if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
         	magnitude_db = c.execute('select NeuralMagnitude from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM) limit {}, 160'.format(position)).fetchall()
         	if not address_db:
             		conn.close()
-            		sys.exit("Complete")
+            		sys.exit("Completed Raining")
         	else:
             		position += 160
             		address_list = list(itertools.chain(*address_db))
@@ -216,7 +216,7 @@ elif mag_or_rac_rain == "rac":
         	rac_db = c.execute('select rac from GRIDCOINTEAM where rac != 0 and rac is not null limit {}, 160'.format(position)).fetchall()
         	if not address_db:
             		conn.close()
-            		sys.exit("Complete")
+            		sys.exit("Completed Raining")
         	else:
             		position += 160
             		address_list = list(itertools.chain(*address_db))
