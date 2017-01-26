@@ -63,3 +63,7 @@ Enter your Gridcoin Wallet Passphrase *** Note; the passphrase is not stored in 
 Once all the data is loaded and the transaction completed, you will receive a set of TXIDs (one for each block of 160 addresses) which can be queried on the block explorer.
 
 A database file 'Rain.db' will be added to the 'C:\Users\User\AppData\Roaming\GridcoinResearch\reports' folder, in case of problems it is safe to delete this file.
+
+Example Transaction: http://www.gridresearchcorp.com/gridcoin/?transaction_detail&txid=af1174f7806e39dd809981f128975294c820cc8009db7e193bcd2b7c1dfb990c
+
+Tips to my GRC Address: SAuPu8zarzQykWLGwxc6JRvW3imM8YU9wc
