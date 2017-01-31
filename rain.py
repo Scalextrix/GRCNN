@@ -178,7 +178,7 @@ rac_contrib = grc_amount / (sum(rac_pull))
 if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
 	conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 	c = conn.cursor()
-    	position = 00
+    	position = 0
     	while True:
         	conn.text_factory = str
         	address_db = c.execute('select Address from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM) limit {}, 160'.format(position)).fetchall()
@@ -208,7 +208,7 @@ if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
 elif mag_or_rac_rain == "rac":
 	conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
     	c = conn.cursor()
-    	position = 00
+    	position = 0
     	while True:
         	conn.text_factory = str
         	address_db = c.execute('select Address from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM) limit {}, 160'.format(position)).fetchall()
@@ -238,5 +238,5 @@ elif mag_or_rac_rain == "rac":
 
 else:
 	sys.exit("Sorry: You must choose 'mag'/'magnitude' OR 'RAC'")
-	
+del gridcoin_passphrase	
 gc.collect()
