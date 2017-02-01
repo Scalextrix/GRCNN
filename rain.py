@@ -129,6 +129,11 @@ grc_amount = float(raw_input("How much GRC to rain on BOINC project: "))
 account_label = raw_input("Choose Wallet Account Label from which the GRC should be taken: ")
 message = str('"'+(raw_input("Enter if you wish to send a message to recipients: "))+'"')
 gridcoin_passphrase = getpass.getpass(prompt="What is your Gridcoin Wallet Passphrase: ")
+try:
+        subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
+        subprocess.check_output(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=True)
+except subprocess.CalledProcessError:
+        sys.exit("Exiting")
         
 root = ET.parse(urlopen(project_url)).getroot()
 team_cpids = [el.text for el in root.findall('.//user/cpid')]
