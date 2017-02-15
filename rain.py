@@ -133,7 +133,7 @@ try:
         subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
         subprocess.check_output(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=True)
 except subprocess.CalledProcessError:
-        sys.exit("Exiting")
+        sys.exit("Exiting: GRIDCOIN WALLET HAS BEEN LOCKED")
         
 root = ET.parse(urlopen(project_url)).getroot()
 team_cpids = [el.text for el in root.findall('.//user/cpid')]
@@ -161,9 +161,9 @@ c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS NNDATA (cpid TEXT, LocalMagnitude TEXT, NeuralMagnitude TEXT, TotalRAC TEXT, Synced Til TEXT, Address TEXT, CPID_Valid TEXT, Witnesses TEXT)''')
 filename.encode('utf-8')
 with open(filename, 'rb') as NN:
-    reader = csv.DictReader(NN)
-    field = [(i['CPID'], i['LocalMagnitude'], i['NeuralMagnitude'], i['TotalRAC'], i['Synced Til'], i['Address'], i['CPID_Valid'], i['Witnesses']) for i in reader]
-    c.executemany("INSERT INTO NNDATA VALUES (?,?,?,?,?,?,?,?);", field)
+	reader = csv.DictReader(NN)
+	field = [(i['CPID'], i['LocalMagnitude'], i['NeuralMagnitude'], i['TotalRAC'], i['Synced Til'], i['Address'], i['CPID_Valid'], i['Witnesses']) for i in reader]
+	c.executemany("INSERT INTO NNDATA VALUES (?,?,?,?,?,?,?,?);", field)
 conn.commit()		
 conn.close()
 print "CSV DB created"
