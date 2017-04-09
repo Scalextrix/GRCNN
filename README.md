@@ -44,7 +44,7 @@ wait for the Neural Network to finish syncing.  *** Note; the NN must sync befor
 
 From the command prompt:
 
-  > rain.py
+  > python rain.py
   
 You will need to:
 
