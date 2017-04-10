@@ -146,18 +146,12 @@ c = conn.cursor()
 c.execute('''DROP TABLE IF EXISTS GRIDCOINTEAM''')
 c.execute('''DROP TABLE IF EXISTS NNDATA''')
 conn.commit()		
-conn.close()
-
 conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS GRIDCOINTEAM (cpids TEXT, rac TEXT)''') 
 c.executemany("INSERT INTO GRIDCOINTEAM VALUES (?,?);", team_stats)
-conn.commit()		
-conn.close()
+conn.commit()
 print "TEAM DB created"
-
-conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
-c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS NNDATA (cpid TEXT, LocalMagnitude TEXT, NeuralMagnitude TEXT, TotalRAC TEXT, Synced Til TEXT, Address TEXT, CPID_Valid TEXT, Witnesses TEXT)''')
 filename.encode('utf-8')
 with open(filename, 'rb') as NN:
@@ -165,11 +159,7 @@ with open(filename, 'rb') as NN:
 	field = [(i['CPID'], i['LocalMagnitude'], i['NeuralMagnitude'], i['TotalRAC'], i['Synced Til'], i['Address'], i['CPID_Valid'], i['Witnesses']) for i in reader]
 	c.executemany("INSERT INTO NNDATA VALUES (?,?,?,?,?,?,?,?);", field)
 conn.commit()		
-conn.close()
 print "CSV DB created"
-
-conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
-c = conn.cursor()
 conn.text_factory = float
 mag_pull = c.execute('select NeuralMagnitude from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM)').fetchall()
 conn.text_factory = float
@@ -184,6 +174,8 @@ tx_counter = int(8192/(len(message) + 50))
 if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
 	conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 	c = conn.cursor()
+        subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
+        subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=True)
     	position = 0
 	print "Gridcoin TXIDs:" 
     	while True:
@@ -193,6 +185,8 @@ if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
         	magnitude_db = c.execute('select NeuralMagnitude from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM) limit {}, {}'.format(position, tx_counter)).fetchall()
         	if not address_db:
             		conn.close()
+            		subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
+            		subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=True)
             		sys.exit("Completed Raining")
         	else:
             		position += tx_counter
@@ -207,14 +201,12 @@ if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
             		call_insert = [val for pair in zip(quotes, address_list, quotes, colon, call_amount, comma) for val in pair]
             		call_insert = str('{'+(''.join(call_insert))+'}')
             		call_insert = call_insert[:-2] + call_insert[-1:]   
-            		subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
-            		subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=True)
             		subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, "2", message], shell=True)
-            		subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
-            		subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=True)
 elif mag_or_rac_rain == "rac":
 	conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
     	c = conn.cursor()
+        subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
+        subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=True)
     	position = 0
 	print "Gridcoin TXIDs"
     	while True:
@@ -224,6 +216,8 @@ elif mag_or_rac_rain == "rac":
         	rac_db = c.execute('select rac from GRIDCOINTEAM where rac != 0 and rac is not null limit {}, {}'.format(position, tx_counter)).fetchall()
         	if not address_db:
             		conn.close()
+            		subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
+            		subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=True)
             		sys.exit("Completed Raining")
         	else:
             		position += tx_counter
@@ -238,12 +232,8 @@ elif mag_or_rac_rain == "rac":
             		call_insert = [val for pair in zip(quotes, address_list, quotes, colon, call_amount, comma) for val in pair]
             		call_insert = str('{'+(''.join(call_insert))+'}')
             		call_insert = call_insert[:-2] + call_insert[-1:]
-            		print("Gridcoin TXIDs:")   
-            		subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
-            		subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=True)
             		subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, "2", message], shell=True)
-            		subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
-            		subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=True)
+
 
 else:
 	sys.exit("Sorry: You must choose 'mag'/'magnitude' OR 'RAC'")
