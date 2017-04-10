@@ -22,42 +22,46 @@ import xml.etree.ElementTree as ET
 user_account = getpass.getuser()	
 filename = "C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\DailyNeuralMagnitudeReport.csv" % user_account
 
-asteroids_url = ("http://asteroidsathome.net/boinc/team_email_list.php?teamid=2218&xml=1")
-atlas_url = ("http://atlasathome.cern.ch/team_email_list.php?teamid=1869&account_key=Y&xml=1")
-burp_url = ("https://burp.renderfarming.net/team_email_list.php?teamid=1285&xml=1")
-collatz_url = ("http://boinc.thesonntags.com/collatz/team_email_list.php?teamid=3029&xml=1")
-cosmology_url = ("http://www.cosmologyathome.org/team_email_list.php?teamid=3637&xml=1")
-csgrid_url = ("http://csgrid.org/csg/team_email_list.php?teamid=154&xml=1")
-ddm_url = ("http://www.distributeddatamining.org/DistributedDataMining/team_email_list.php?teamid=2176&xml=1")
-einstein_url = ("https://einsteinathome.org/team_email_list.php?teamid=13630&account_key=Y&xml=1")
-enigma_url = ("http://www.enigmaathome.net/team_email_list.php?teamid=2937&xml=1")
-find_url = ("http://findah.ucd.ie/team_email_list.php?teamid=2198&xml=1")
-gpugrid_url = ("https://www.gpugrid.net/team_email_list.php?teamid=3493&xml=1")
-gridcoin_finance_url = ("finance.gridcoin.us/finance/team_email_list.php?teamid=5&xml=1")
-leiden_url = ("http://boinc.gorlaeus.net/team_email_list.php?teamid=1629&xml=1")
-lhc_url = ("http://lhcathomeclassic.cern.ch/sixtrack/team_email_list.php?teamid=8128&xml=1")
-malaria_url = ("http://www.malariacontrol.net/team_email_list.php?teamid=4059&xml=1")
-milkyway_url = ("http://milkyway.cs.rpi.edu/milkyway/team_email_list.php?teamid=6566&xml=1")
-mindmodel_url = ("https://mindmodeling.org/team_email_list.php?teamid=2415&account_key=Y&xml=1")
-moo_url = ("http://moowrap.net/team_email_list.php?teamid=2190&xml=1")
-nfs_url = ("https://mindmodeling.org/login_form.php?next_url=%2Fteam_email_list.php%3Fteamid%3D2415%26xm")
-numberfields_url = ("https://numberfields.asu.edu/NumberFields/team_email_list.php?teamid=2069&xml=1")
-poem_url = ("http://boinc.fzk.de/poem/team_email_list.php?teamid=3147&xml=1")
-pogs_url = ("http://pogs.theskynet.org/pogs/team_email_list.php?teamid=2020&xml=1")
-primegrid_url = ("https://www.primegrid.com/team_email_list.php?teamid=4469&xml=1")
-rosetta_url = ("https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1")
-sat_url = ("http://sat.isa.ru/pdsat/team_email_list.php?teamid=2059&xml=1")
-seti_url = ("https://setiathome.berkeley.edu/team_email_list.php?teamid=145340&xml=1")
-stzaki_url = ("http://szdg.lpds.sztaki.hu/szdg/team_email_list.php?teamid=3502&xml=1")
-vlhc_url = ("http://lhcathome2.cern.ch/vLHCathome/team_email_list.php?teamid=2429&xml=1")
-wcg_url = ("https://www.worldcommunitygrid.org/boinc/team_email_list.php?teamid=30513&xml=1")
-wuprop_url = ("http://wuprop.boinc-af.org/team_email_list.php?teamid=2243&xml=1")
-yafu_url = ("http://yafu.myfirewall.org/yafu/team_email_list.php?teamid=260&account_key=Y&xml=1")
-yoyo_url = ("http://www.rechenkraft.net/yoyo/team_email_list.php?teamid=1475&xml=1")
+amicable_url = "https://sech.me/boinc/Amicable/team_email_list.php?teamid=1806&xml=1"
+asteroids_url = "http://asteroidsathome.net/boinc/team_email_list.php?teamid=2218&xml=1"
+atlas_url = "http://atlasathome.cern.ch/team_email_list.php?teamid=1869&account_key=Y&xml=1"
+burp_url = "https://burp.renderfarming.net/team_email_list.php?teamid=1285&xml=1"
+collatz_url = "http://boinc.thesonntags.com/collatz/team_email_list.php?teamid=3029&xml=1"
+cosmology_url = "http://www.cosmologyathome.org/team_email_list.php?teamid=3637&xml=1"
+csgrid_url = "http://csgrid.org/csg/team_email_list.php?teamid=154&xml=1"
+ddm_url = "http://www.distributeddatamining.org/DistributedDataMining/team_email_list.php?teamid=2176&xml=1"
+einstein_url = "https://einsteinathome.org/team_email_list.php?teamid=13630&account_key=Y&xml=1"
+enigma_url = "http://www.enigmaathome.net/team_email_list.php?teamid=2937&xml=1"
+find_url = "http://findah.ucd.ie/team_email_list.php?teamid=2198&xml=1"
+gpugrid_url = "https://www.gpugrid.net/team_email_list.php?teamid=3493&xml=1"
+gridcoin_finance_url = "finance.gridcoin.us/finance/team_email_list.php?teamid=5&xml=1"
+leiden_url = "http://boinc.gorlaeus.net/team_email_list.php?teamid=1629&xml=1"
+lhc_url = "http://lhcathomeclassic.cern.ch/sixtrack/team_email_list.php?teamid=8128&xml=1"
+malaria_url = "http://www.malariacontrol.net/team_email_list.php?teamid=4059&xml=1"
+milkyway_url = "http://milkyway.cs.rpi.edu/milkyway/team_email_list.php?teamid=6566&xml=1"
+mindmodel_url = "https://mindmodeling.org/team_email_list.php?teamid=2415&account_key=Y&xml=1"
+moo_url = "http://moowrap.net/team_email_list.php?teamid=2190&xml=1"
+nfs_url = "https://mindmodeling.org/login_form.php?next_url=%2Fteam_email_list.php%3Fteamid%3D2415%26xm"
+numberfields_url = "https://numberfields.asu.edu/NumberFields/team_email_list.php?teamid=2069&xml=1"
+poem_url = "http://boinc.fzk.de/poem/team_email_list.php?teamid=3147&xml=1"
+pogs_url = "http://pogs.theskynet.org/pogs/team_email_list.php?teamid=2020&xml=1"
+primegrid_url = "https://www.primegrid.com/team_email_list.php?teamid=4469&xml=1"
+rosetta_url = "https://boinc.bakerlab.org/rosetta/team_email_list.php?teamid=12575&account_key=Y&xml=1"
+sat_url = "http://sat.isa.ru/pdsat/team_email_list.php?teamid=2059&xml=1"
+seti_url = "https://setiathome.berkeley.edu/team_email_list.php?teamid=145340&xml=1"
+stzaki_url = "http://szdg.lpds.sztaki.hu/szdg/team_email_list.php?teamid=3502&xml=1"
+tngrid_url = "https://gene.disi.unitn.it/test/team_email_list.php?teamid=61&xml=1"
+vlhc_url = "http://lhcathome2.cern.ch/vLHCathome/team_email_list.php?teamid=2429&xml=1"
+wcg_url = "https://www.worldcommunitygrid.org/boinc/team_email_list.php?teamid=30513&xml=1"
+wuprop_url = "http://wuprop.boinc-af.org/team_email_list.php?teamid=2243&xml=1"
+yafu_url = "http://yafu.myfirewall.org/yafu/team_email_list.php?teamid=260&account_key=Y&xml=1"
+yoyo_url = "http://www.rechenkraft.net/yoyo/team_email_list.php?teamid=1475&xml=1"
 
 
 rain_team = raw_input("Which BOINC project to RAIN on: ").lower()
-if rain_team == "asteroids" or rain_team == "asteroids@home":
+if rain_team == "amicable" or rain_team == "amicable numbers":
+	    project_url = amicable_url
+elif rain_team == "asteroids" or rain_team == "asteroids@home":
 	    project_url = asteroids_url
 elif rain_team == "atlas" or rain_team == "atlas@home":
 	    project_url = atlas_url
@@ -111,6 +115,8 @@ elif rain_team == "seti" or rain_team == "seti@home":
 	    project_url = seti_url
 elif rain_team == "stzaki":
 	    project_url = stzaki_url
+elif rain_team == "tngrid" or rain_team == "tn-grid":
+	    project_url = tngrid_url
 elif rain_team == "vlhc" or rain_team == "lhc@home2" or rain_team == "vlhc@home":
 	    project_url = vlhc_url
 elif rain_team == "wcg" or rain_team == "world community grid":
