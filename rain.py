@@ -200,6 +200,7 @@ if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
             		magnitude_list = list(itertools.chain(*magnitude_db))
             		call_amount = [x * mag_contrib for x in magnitude_list]
             		call_amount = [str("{:.8f}".format(i)) for i in call_amount]
+			call_amount = ["0.00000001" if x=="0.00000000" else x for x in call_amount]
             		quotes = '"' * len(magnitude_list)
             		colon = ':' * len(magnitude_list)
             		comma = ',' * len(magnitude_list)
@@ -230,6 +231,7 @@ elif mag_or_rac_rain == "rac":
             		rac_list = list(itertools.chain(*rac_db))
             		call_amount = [x * rac_contrib for x in rac_list]
             		call_amount = [str("{:.8f}".format(i)) for i in call_amount]
+			call_amount = ["0.00000001" if x=="0.00000000" else x for x in call_amount]
             		quotes = '"' * len(rac_list)
             		colon = ':' * len(rac_list)
             		comma = ',' * len(rac_list)
