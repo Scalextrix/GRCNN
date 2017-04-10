@@ -6,7 +6,7 @@ allow user to send a multi transaction to rain GRC on team members"""
 __author__ = "Steven Campbell AKA Scalextrix"
 __copyright__ = "Copyright 2017, Steven Campbell"
 __license__ = "The Unlicense"
-__version__ = "1.0"
+__version__ = "1.1"
 
 import csv
 import gc
