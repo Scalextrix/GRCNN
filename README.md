@@ -56,7 +56,7 @@ Enter the total amount of GRC you wish to send to the rainees
 
 Choose the Gridcoin Wallet Account Label from which the GRC should be taken (in GUI wallet see Receive Coins for Label list)
 
-Enter an optional message to send in the transaction
+Enter an optional message to mark in your own wallet (for your reference)
 
 Enter your Gridcoin Wallet Passphrase *** Note; the passphrase is not stored in the database and the entry will be invisible, the wallet will be locked, unlocked, the transaction sent, re-locked and then unlocked for staking only ***
 
