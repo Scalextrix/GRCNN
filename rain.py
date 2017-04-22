@@ -193,7 +193,9 @@ if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
             		conn.close()
             		subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
             		subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=True)
-            		sys.exit("Completed Raining")
+            		del gridcoin_passphrase	
+			gc.collect()
+			sys.exit("Completed Raining")
         	else:
             		position += tx_counter
             		address_list = list(itertools.chain(*address_db))
@@ -224,7 +226,9 @@ elif mag_or_rac_rain == "rac":
             		conn.close()
             		subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
             		subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=True)
-            		sys.exit("Completed Raining")
+            		del gridcoin_passphrase	
+			gc.collect()
+			sys.exit("Completed Raining")
         	else:
             		position += tx_counter
             		address_list = list(itertools.chain(*address_db))
