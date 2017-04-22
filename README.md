@@ -16,7 +16,7 @@ To operate this Python script you need to install Python 2.7.
 
 The gridcoinresearch.conf file must contain 'exportmagnitude=true', 'rpcuser=' and 'rpcpassword=' must be set with a username and password. 
 
-The Gridcoin Qt wallet must be started with the -server argument to allow GridcoinResearch to accept RPC commands.
+The Gridcoin Qt wallet must be started with the -server argument (or add 'server=1' to gridcoinresearch.conf) to allow GridcoinResearch to accept RPC commands.
 
 The NeuralNetwork must be synchronized.
 
@@ -64,6 +64,6 @@ Once all the data is loaded and the transaction completed, you will receive a se
 
 A database file 'Rain.db' will be added to the 'C:\Users\User\AppData\Roaming\GridcoinResearch\reports' folder, in case of problems it is safe to delete this file.
 
-Example Transaction: http://www.gridresearchcorp.com/gridcoin/?transaction_detail&txid=af1174f7806e39dd809981f128975294c820cc8009db7e193bcd2b7c1dfb990c
+Example Transaction: https://gridcoinstats.eu/tx/af1174f7806e39dd809981f128975294c820cc8009db7e193bcd2b7c1dfb990c
 
 Tips to my GRC Address: SAuPu8zarzQykWLGwxc6JRvW3imM8YU9wc
