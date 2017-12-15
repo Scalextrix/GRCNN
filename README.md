@@ -20,7 +20,6 @@ The Gridcoin Qt wallet must be started with the -server argument (or add 'server
 
 The NeuralNetwork must be synchronized.
 
-This Python script must be copied to 'C:\Program Files (x86)\GridcoinResearch' for it to work, or, gridcoinresearchd must be set in %PATH%.
 
 *** INSTRUCTIONS
 
@@ -60,7 +59,7 @@ Enter an optional message to mark in your own wallet (for your reference)
 
 Enter your Gridcoin Wallet Passphrase *** Note; the passphrase is not stored in the database and the entry will be invisible, the wallet will be locked, unlocked, the transaction sent, re-locked and then unlocked for staking only ***
 
-Once all the data is loaded and the transaction completed, you will receive a set of TXIDs, one for each block of addresses, which can be queried on the block explorer.  TXs are split into blocks because of a limit in Windows command line (max length 8192 characters), the program will use the least number of TXs possible.
+Once all the data is loaded and the transaction completed, you will receive the TXID,  which can be queried on the block explorer.
 
 A database file 'Rain.db' will be added to the 'C:\Users\User\AppData\Roaming\GridcoinResearch\reports' folder, in case of problems it is safe to delete this file.
 
