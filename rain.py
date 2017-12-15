@@ -216,10 +216,10 @@ else:
 conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 c = conn.cursor()
 conn.text_factory = str
-address_db = c.execute('select Address from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM)'').fetchall()
+address_db = c.execute('select Address from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM)').fetchall()
 conn.text_factory = float
 if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
-        racmag_db = c.execute('select NeuralMagnitude from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM)'').fetchall()
+        racmag_db = c.execute('select NeuralMagnitude from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM)').fetchall()
 elif mag_or_rac_rain == "rac":
         racmag_db = c.execute('select rac from GRIDCOINTEAM where rac != 0 and rac is not null').fetchall()
 conn.close()
