@@ -6,21 +6,30 @@ allow user to send a multi transaction to rain GRC on team members"""
 __author__ = "Steven Campbell AKA Scalextrix"
 __copyright__ = "Copyright 2017, Steven Campbell"
 __license__ = "The Unlicense"
-__version__ = "1.1"
+__version__ = "1.2"
 
 import csv
 import gc
 import getpass
+import json
 import itertools
 import os.path
+import requests
 import sqlite3
-import subprocess
 import sys
+import time
 from urllib2 import urlopen
 import xml.etree.ElementTree as ET
 
 user_account = getpass.getuser()	
-filename = "C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\DailyNeuralMagnitudeReport.csv" % user_account
+filename = "C:\\Users\\{}\\AppData\\Roaming\\GridcoinResearch\\reports\\DailyNeuralMagnitudeReport.csv".format(user_account)
+f = open('C:\\Users\\{}\\AppData\\Roaming\\GridcoinResearch\\gridcoinresearch.conf'.format(user_account), 'rb')
+for line in f:
+	line = line.rstrip()
+	if line[0:7] == 'rpcuser':
+		rpc_user = line[line.find('=')+1:]
+	if line[0:11] == 'rpcpassword':
+		rpc_pass = line[line.find('=')+1:]
 
 amicable_url = "https://sech.me/boinc/Amicable/team_email_list.php?teamid=1806&xml=1"
 asteroids_url = "http://asteroidsathome.net/boinc/team_email_list.php?teamid=2218&xml=1"
@@ -56,7 +65,6 @@ wcg_url = "https://www.worldcommunitygrid.org/boinc/team_email_list.php?teamid=3
 wuprop_url = "http://wuprop.boinc-af.org/team_email_list.php?teamid=2243&xml=1"
 yafu_url = "http://yafu.myfirewall.org/yafu/team_email_list.php?teamid=260&xml=1"
 yoyo_url = "http://www.rechenkraft.net/yoyo/team_email_list.php?teamid=1475&xml=1"
-
 
 rain_team = raw_input("Which BOINC project to RAIN on: ").lower()
 if rain_team == "amicable" or rain_team == "amicable numbers":
@@ -128,25 +136,43 @@ elif rain_team == "yafu" or rain_team == "yafu@home":
 elif rain_team == "yoyo" or rain_team == "yoyo@home":
 	    project_url = yoyo_url
 else:
-	    sys.exit("Sorry: BOINC Team not recognised")
+	    print ("Sorry: BOINC Team not recognised, exiting in 10 seconds")
+	    time.sleep(10)
+	    sys.exit()
+
+def instruct_wallet(method, params):
+	url = "http://127.0.0.1:9332/"
+	payload = json.dumps({"method": method, "params": params})
+	headers = {'content-type': "application/json", 'cache-control': "no-cache"}
+	try:
+		response = requests.request("POST", url, data=payload, headers=headers, auth=(rpc_user, rpc_pass))
+		return json.loads(response.text)
+	except requests.exceptions.RequestException as e:
+		print e
+	except:
+                print 'No response from Wallet, check Gridcoin is runnig on this machine'
 
 mag_or_rac_rain = raw_input("Would you prefer to rain by RAC or Magnitude :").lower()
+print ('WARNING: With small amounts of GRC, the total RAIN amount may slightly exceed your requested total amount due to rounding errors')
 grc_amount = float(raw_input("How much GRC to rain on BOINC project: "))
 account_label = raw_input("Choose Wallet Account Label from which the GRC should be taken: ")
-message = str('"'+(raw_input("Enter if you wish to send a message to recipients: "))+'"')
+message = raw_input("Enter if you wish to send an internal note to this transaction: ")
 gridcoin_passphrase = getpass.getpass(prompt="What is your Gridcoin Wallet Passphrase: ")
-try:
-        subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
-        subprocess.check_output(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=True)
-except subprocess.CalledProcessError:
-        sys.exit("Exiting: GRIDCOIN WALLET HAS BEEN LOCKED")
-        
+instruct_wallet('walletlock', [])
+pass_check = instruct_wallet('walletpassphrase', [gridcoin_passphrase, 9999999, True])
+if pass_check['error'] != None:
+	print 'Incorrect Wallet Passphrase, exiting in 10 seconds'
+	time.sleep(10)
+	sys.exit()
+
+# fetch Gridcoin Team Statistics XML from BOINC Project website        
 root = ET.parse(urlopen(project_url)).getroot()
 team_cpids = [el.text for el in root.findall('.//user/cpid')]
 team_racs = [el.text for el in root.findall('.//user/expavg_credit')]
 team_stats = zip(*[iter(team_cpids),(team_racs)]*1)
 print "BOINC project team XML Parsed"
 
+# add Gridcoin Team Statistics to local database
 conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
 c = conn.cursor()
 c.execute('''DROP TABLE IF EXISTS GRIDCOINTEAM''')
@@ -158,6 +184,8 @@ c.execute('''CREATE TABLE IF NOT EXISTS GRIDCOINTEAM (cpids TEXT, rac TEXT)''')
 c.executemany("INSERT INTO GRIDCOINTEAM VALUES (?,?);", team_stats)
 conn.commit()
 print "TEAM DB created"
+
+# fetch Nureal Network data from Gridcoin Daily NN Report and write to local database
 c.execute('''CREATE TABLE IF NOT EXISTS NNDATA (cpid TEXT, LocalMagnitude TEXT, NeuralMagnitude TEXT, TotalRAC TEXT, Synced Til TEXT, Address TEXT, CPID_Valid TEXT, Witnesses TEXT)''')
 filename.encode('utf-8')
 with open(filename, 'rb') as NN:
@@ -166,86 +194,62 @@ with open(filename, 'rb') as NN:
 	c.executemany("INSERT INTO NNDATA VALUES (?,?,?,?,?,?,?,?);", field)
 conn.commit()		
 print "CSV DB created"
-conn.text_factory = float
-mag_pull = c.execute('select NeuralMagnitude from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM)').fetchall()
-conn.text_factory = float
-rac_pull = c.execute('select rac from GRIDCOINTEAM where rac != 0 and rac is not null').fetchall()
-conn.close()
-mag_pull = list(itertools.chain(*mag_pull))
-mag_contrib = grc_amount / (sum(mag_pull))
-rac_pull = list(itertools.chain(*rac_pull))
-rac_contrib = grc_amount / (sum(rac_pull))
-tx_counter = int(8192/(len(message) + 50))
 
+# fetch total Magnitude or RAC and calculate the amount of GRC to send per unit
 if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
-	conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
-	c = conn.cursor()
-        subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
-        subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=True)
-    	position = 0
-	print "Gridcoin TXIDs:" 
-    	while True:
-        	conn.text_factory = str
-        	address_db = c.execute('select Address from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM) limit {}, {}'.format(position, tx_counter)).fetchall()
-        	conn.text_factory = float
-        	magnitude_db = c.execute('select NeuralMagnitude from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM) limit {}, {}'.format(position, tx_counter)).fetchall()
-        	if not address_db:
-            		conn.close()
-            		subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
-            		subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=True)
-            		del gridcoin_passphrase	
-			gc.collect()
-			sys.exit("Completed Raining")
-        	else:
-            		position += tx_counter
-            		address_list = list(itertools.chain(*address_db))
-            		magnitude_list = list(itertools.chain(*magnitude_db))
-            		call_amount = [x * mag_contrib for x in magnitude_list]
-            		call_amount = [str("{:.8f}".format(i)) for i in call_amount]
-			call_amount = ["0.00000001" if x=="0.00000000" else x for x in call_amount]
-            		quotes = '"' * len(magnitude_list)
-            		colon = ':' * len(magnitude_list)
-            		comma = ',' * len(magnitude_list)
-            		call_insert = [val for pair in zip(quotes, address_list, quotes, colon, call_amount, comma) for val in pair]
-            		call_insert = str('{'+(''.join(call_insert))+'}')
-            		call_insert = call_insert[:-2] + call_insert[-1:]   
-            		subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, "2", message], shell=True)
+        conn.text_factory = float
+        mag_pull = float(c.execute('select sum(NeuralMagnitude) from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM)').fetchone()[0])
+        conn.close()
+        mag_contrib = grc_amount / mag_pull
+                
 elif mag_or_rac_rain == "rac":
-	conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
-    	c = conn.cursor()
-        subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
-        subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999'], shell=True)
-    	position = 0
-	print "Gridcoin TXIDs"
-    	while True:
-        	conn.text_factory = str
-        	address_db = c.execute('select Address from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null and CPID in (select cpids from GRIDCOINTEAM) limit {}, {}'.format(position, tx_counter)).fetchall()
-        	conn.text_factory = float
-        	rac_db = c.execute('select rac from GRIDCOINTEAM where rac != 0 and rac is not null limit {}, {}'.format(position, tx_counter)).fetchall()
-        	if not address_db:
-            		conn.close()
-            		subprocess.call(['gridcoinresearchd', 'walletlock'], shell=True)
-            		subprocess.call(['gridcoinresearchd', 'walletpassphrase', gridcoin_passphrase, '9999999', 'true'], shell=True)
-            		del gridcoin_passphrase	
-			gc.collect()
-			sys.exit("Completed Raining")
-        	else:
-            		position += tx_counter
-            		address_list = list(itertools.chain(*address_db))
-            		rac_list = list(itertools.chain(*rac_db))
-            		call_amount = [x * rac_contrib for x in rac_list]
-            		call_amount = [str("{:.8f}".format(i)) for i in call_amount]
-			call_amount = ["0.00000001" if x=="0.00000000" else x for x in call_amount]
-            		quotes = '"' * len(rac_list)
-            		colon = ':' * len(rac_list)
-            		comma = ',' * len(rac_list)
-            		call_insert = [val for pair in zip(quotes, address_list, quotes, colon, call_amount, comma) for val in pair]
-            		call_insert = str('{'+(''.join(call_insert))+'}')
-            		call_insert = call_insert[:-2] + call_insert[-1:]
-            		subprocess.call(['gridcoinresearchd', 'sendmany', account_label, call_insert, "2", message], shell=True)
-
-
+        conn.text_factory = float
+        rac_pull = float(c.execute('select sum(rac) from GRIDCOINTEAM where rac != 0 and rac is not null').fetchone()[0])
+        conn.close()
+        rac_contrib = grc_amount / rac_pull
 else:
-	sys.exit("Sorry: You must choose 'mag'/'magnitude' OR 'RAC'")
-del gridcoin_passphrase	
+	sys.exit("Sorry: You must choose 'mag'/'magnitude' or 'RAC'")
+        del gridcoin_passphrase	
+        gc.collect()
+
+# get lists of Magnitude or RAC and associated addresses matching the BOINC Project Team Result
+conn = sqlite3.connect("C:\\Users\\%s\\AppData\\Roaming\\GridcoinResearch\\reports\\Rain.db" % user_account)
+c = conn.cursor()
+conn.text_factory = str
+address_db = c.execute('select Address from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null').fetchall()
+conn.text_factory = float
+if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
+        racmag_db = c.execute('select NeuralMagnitude from NNDATA where NeuralMagnitude != 0 and NeuralMagnitude is not null').fetchall()
+elif mag_or_rac_rain == "rac":
+        racmag_db = c.execute('select rac from GRIDCOINTEAM where rac != 0 and rac is not null').fetchall()
+conn.close()
+address_list = list(itertools.chain(*address_db))
+magnitude_list = list(itertools.chain(*racmag_db))
+
+# make a dictionary of addresses and amounts, ensure no amount is less than the smallest GRC unit (0.00000001)
+if mag_or_rac_rain == "magnitude" or mag_or_rac_rain == "mag":
+        call_amount = [x * mag_contrib for x in magnitude_list]
+elif mag_or_rac_rain == "rac":
+        call_amount = [x * rac_contrib for x in magnitude_list]
+call_amount = [float("{:.8f}".format(i)) for i in call_amount]
+call_amount = [0.00000001 if x<=0.00000001 else x for x in call_amount]
+call_insert = dict(zip(address_list, call_amount))
+
+# unlock wallet and make the sendmany transaction
+print "Gridcoin TXID:"
+instruct_wallet('walletlock', [])
+instruct_wallet('walletpassphrase', [gridcoin_passphrase, 9999999])
+result = instruct_wallet('sendmany', [account_label, call_insert, 2, message])
+if result['error'] != None:
+        print result['error']['message']
+else:
+        print result['result']
+
+# set wallet back to staking and quit
+instruct_wallet('walletlock', [])
+instruct_wallet('walletpassphrase', [gridcoin_passphrase, 9999999, True])
+del gridcoin_passphrase
 gc.collect()
+print('Completed Raining, exit in 10 seconds')
+time.sleep(10)
+sys.exit()
